@@ -3,6 +3,7 @@ import express, { Express, Request, Response } from "express";
 import swaggerUi from "swagger-ui-express";
 import swaggerSpec from "./config/swaggerConfig";
 import { errorHandler, routeNotFound } from "./middleware";
+import { authRouter } from "./routes";
 
 
 
@@ -33,7 +34,7 @@ app.get("/", (req: Request, res: Response) => {
   });
 });
 
-// app.use("/api/v1", voteRoute);
+app.use("/api/v1", authRouter);
 
 
 
