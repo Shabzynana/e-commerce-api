@@ -46,6 +46,37 @@ export class AuthService {
         }
     }
 
+
+    async signIn(payload: any): Promise<{ message: string; access_token: string; data: Partial<User>;}> {
+
+        const { email, password } = payload;
+
+        const user = await this.userRepository.findOne({
+            where : { email }
+        });
+        if (!user) {
+            throw new ResourceNotFound("User not found");
+        }
+
+        if (user.google_id && user.password === null) {
+            throw new HttpError(401, "User Created with Google");
+        }
+
+        const isPasswordMatch = await comparePassword(password, user.password);
+        if (!isPasswordMatch) {
+            throw new Unauthorized("Invalid credentials");
+        }
+
+        const token = jwt.sign({ user_id: user.id }, config.TOKEN_SECRET, {expiresIn: "1d"});
+        return {
+            message: "User logged in successfully",
+            access_token: token,
+            data: user
+        }
+
+    }
+
+
     
 
 }    

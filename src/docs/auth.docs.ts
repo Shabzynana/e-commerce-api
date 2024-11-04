@@ -1,7 +1,7 @@
 export const signUp = `
 /**
  * @swagger
- * /api/v1/auth/signup:
+ * /api/v1/auth/signUp:
  *   post:
  *     summary: Sign up a new user
  *     tags: [Authentication]
@@ -80,5 +80,66 @@ export const signUp = `
  *                 status_code:
  *                   type: integer
  *                   example: 400
+ */
+`;
+
+
+export const signIn = `
+/**
+ * @swagger
+ * /api/v1/auth/signIn:
+ *   post:
+ *     summary: Sign up a new user
+ *     tags: [Authentication]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               email:
+ *                 type: string
+ *                 example: john.doe@example.com
+ *               password:
+ *                 type: string
+ *                 example: strongpassword123
+ *
+ *     responses:
+ *       200:
+ *         description: The user was successfully created
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: Login Successfull,
+ *                 status_code:
+ *                   type: number
+ *                   example: 200
+ *                 data:
+ *                   type: object
+ *                   properties:
+ *                     user:
+ *                       type: object
+ *                       properties:
+ *                         id:
+ *                           type: string
+ *                         email:
+ *                           type: string
+ *                         firstName:
+ *                           type: string
+ *                         lastName:
+ *                           type: string
+ *                 access_token:
+ *                   type: string
+ *       401:
+ *         description: Invalid credeentials
+ *       404:
+ *         description: User not found
+ *       500:
+ *         description: Some server error
  */
 `;
