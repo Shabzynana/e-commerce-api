@@ -17,4 +17,13 @@ export const signIn = asyncHandler(async(req: Request, res: Response, next: Next
     const { message, access_token, data } = await authService.signIn(req.body);
     sendJsonResponse(res, 200, message, data, access_token);
 
-});    
+});   
+
+export const currentUser = asyncHandler(async(req: Request, res: Response, next: NextFunction) => {
+      
+     
+    const user_id = req.user.user_id
+    const { message, data } = await authService.currentUser(user_id);
+    sendJsonResponse(res, 200, message, data);
+    
+})

@@ -73,8 +73,27 @@ export class AuthService {
             access_token: token,
             data: user
         }
-
     }
+
+
+    async currentUser(payload: any): Promise<{ message: string; data: Partial<User>;}> {
+
+        const { user_id } = payload;
+
+        const user = await this.userRepository.findOne({
+            where : { id: user_id }
+        });
+        if (!user) {
+            throw new ResourceNotFound("User not found");
+        }
+
+        return {
+            message: "Current loggedIn User",
+            data: user
+        }
+    }
+
+        
 
 
     
